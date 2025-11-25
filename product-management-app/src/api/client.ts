@@ -1,0 +1,16 @@
+import axios from "axios";
+import { useAuthStore } from "../stores/auth";
+
+const api = axios.create({
+  baseURL: "https://dummyjson.com",
+});
+
+api.interceptors.request.use((config) => {
+  const auth = useAuthStore();
+  if (auth.accessToken && config.url !== "/auth/login") {
+    config.headers.Authorization = `Bearer ${auth.accessToken}`;
+  }
+  return config;
+});
+
+export default api;
