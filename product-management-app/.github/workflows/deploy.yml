@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Set a branch to deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true # Fetch submodules if any
+          fetch-depth: 0 # Fetch all history for .GitInfo and auto-update
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # Or your desired Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./product-management-app/dist # Your build output directory
+          # The following is important for SPAs with client-side routing
+          # It copies index.html to 404.html to handle client-side routing refreshes
+          # and direct access to sub-routes.
+          cname: '' # Set your custom domain here if you have one, e.g. example.com
+          enable_jekyll: false # Disable Jekyll to prevent issues with files starting with underscore
