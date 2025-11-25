@@ -3,6 +3,7 @@ import { useAuthStore } from "../stores/auth";
 
 const api = axios.create({
   baseURL: "https://dummyjson.com",
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {
