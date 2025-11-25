@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 import LoginPage from "../pages/login/LoginPage.vue";
 import ProductsPage from "../pages/products/ProductsPage.vue";
@@ -37,13 +37,13 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
-router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+router.beforeEach((to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const auth = useAuthStore();
   if (!auth.accessToken) auth.restoreSession();
 
