@@ -23,20 +23,16 @@ jobs:
         with:
           node-version: 20 # Or your desired Node.js version
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
+      - name: Install dependencies and Build
+        run: |
+          cd product-management-app
+          npm install
+          npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./product-management-app/dist # Your build output directory
-          # The following is important for SPAs with client-side routing
-          # It copies index.html to 404.html to handle client-side routing refreshes
-          # and direct access to sub-routes.
+          publish_dir: ./product-management-app/dist
           cname: '' # Set your custom domain here if you have one, e.g. example.com
           enable_jekyll: false # Disable Jekyll to prevent issues with files starting with underscore
