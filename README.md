@@ -3,6 +3,8 @@
 
 This project is a mini Product Management App built as a solution to the AlienSoft Technologies Frontend Technical Test. It is developed using Vue 3, Pinia, Vue Router, and Tailwind CSS, and it communicates with the public API at `dummyjson.com`.
 
+Now configured for deployment to GitHub Pages.
+
 ## Objective
 
 The primary goal of this application is to demonstrate proficiency in modern frontend technologies by building a functional and well-structured Vue.js application. The app supports user authentication, product browsing, and product management features.
