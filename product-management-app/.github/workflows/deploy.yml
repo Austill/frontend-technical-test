@@ -2,6 +2,8 @@
 name: Deploy to GitHub Pages
 
 on:
+  workflow_dispatch:
+    name: "Manual Deploy"
   push:
     branches:
       - main
